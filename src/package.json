@@ -1,0 +1,18 @@
+{
+"name": "nodeserver",
+"version": "1.0.0",
+"description": "nodejs url shortener",
+"author": "WIN10",
+"license": "MIT",
+"main": "app.js",
+"keywords": [
+	"nodejs",
+	"bootstrap",
+	"express"
+],
+"dependencies": {
+	"express": "^4.16.4",
+	"mongodb": "^3.5.7",
+	"body-parser": "^1.19.0"
+}
+}

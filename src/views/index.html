@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="HandheldFriendly" content="true" />
+        <meta name = "viewport" content = "width = device-width, initial-scale=1.0">
+        <meta name="author" content="sasacv"/>
+        <meta name="description" content=""/>
+        <meta name="keywords" content="urlshortener"/>
+        <meta name="date" content="2020-05-20T15:30:00"/>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8">
+        
+        <title>URL-Shortener</title>
+		
+		<!--FONTS -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        
+		<!--ICONS-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		
+		<!--STYLES-->
+		<link rel="stylesheet" href="styles.css" />
+        
+		<!--SCRIPTS-->
+		<script type="text/javascript" src="script.js"></script>
+        <noscript>
+        	<div style="background:red; width:100%; min-height:100%; position:fixed; top:0px;z-index:9999; font-size:17px; text-align:center;">
+        		Bitte aktivieren Sie JavaScript!
+        	</div>
+        </noscript>
+    
+	</head>
+	
+	<body>
+		<div id="header">
+			URL-Shortener
+		</div>
+		<script>
+			var myParam = window.location.href.split('/')[3].split('?q=');
+			if(myParam[0] == "error" && myParam[1] == "2"){
+				document.write('<div id="infoError" class="info">Der eingegebene Kurzlink existiert nicht! <br/>Bitte erzeugen Sie zunächst Ihren Kurzlink.</div>');
+			}
+		</script>
+		<script>
+			var myParam = window.location.href.split('/')[3];
+			if(myParam.split('?')[0] == "success"){
+				document.write('<div id="infoSuccess" class="info">Ihr Kurz-Link wurde erfolgreich erstellt!<br/><a href="http://localhost/'+myParam.split('?q=')[1]+'" target="_blank">http://localhost/'+myParam.split('?q=')[1]+'</a></div>');
+			}
+		</script>
+		<script>
+			var myParam = window.location.href.split('/')[3].split('?q=');
+			if(myParam[0] == "error" && myParam[1] == "1"){
+				document.write('<div id="infoError" class="info">Ihr favorisierter Link ist leider nicht mehr verfügbar!<br/> Bitte wählen Sie einen anderen.</div>');
+			}
+		</script>
+		<script>
+			var myParam = window.location.href.split('/')[3].split('?q=');
+			if(myParam[0] == "error" && myParam[1] == "3"){
+				document.write('<div id="infoError" class="info">Beim erzeugen Ihres Kurzlinks ist ein Fehler aufgetreten.<br/> Bitte versuchen Sie es erneut.</div>');
+			}
+		</script>
+		<div id="main">
+			<form action="http://localhost/generate" method="POST">
+				<div id="main_header">
+					Geben Sie zuerst die URL und anschließend Ihren favorisierten Link ein.
+					<br/>Achten Sie beim favorisierten Link darauf, dass nur Kleinbuchstaben und Zahlen erlaubt sind. 
+					<br/>Ferner darf der Kurzlink nicht "success", "error" oder "favicon" sein.
+					<br/>Wird kein favorisierter Link eingegeben, wird automatisch einer erzeugt.
+				</div>
+				<div id="main_content">
+					<input id="originalURL" name="originalURL" class="inputText" type="text" placeholder="Deine URL..." onkeyup="charCount();">
+					<br/><br/>
+					http://localhost/
+					<input id="shortLink" name="shortLink" class="inputText" type="text" placeholder="Dein favorisierter Link..." onkeyup="charCount();" maxlength="10" pattern="[a-z0-9]{1,10}">
+					<span id="charCounter" class="charCounter">0</span><span class="charCounter"> / 10</span>
+				</div>
+				<br/>
+				<input type="submit" id="generateLink" disabled="disabled" value="Generiere Kurz-Link"/>
+				
+			</form>	
+		</div>
+	</body>
+</html>

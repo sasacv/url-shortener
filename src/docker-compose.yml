@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+
+ nodeserver:
+  build: . 
+  image: nodeserver
+  ports:
+  - "80:8080"
+  links:
+  - mongodb
+  container_name: nodeserver
+  restart: unless-stopped
+  depends_on: 
+  - mongodb
+
+ mongodb:
+  image: mongo:4.2.6-bionic
+  ports:
+  - "27017:27017"
+  environment:
+   MONGO_INITDB_ROOT_USERNAME: root
+   MONGO_INITDB_ROOT_PASSWORD: 123456
+  container_name: mongodb
+  volumes:
+  - /data/db
+  restart: unless-stopped
+
